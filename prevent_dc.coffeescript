@@ -1,0 +1,10 @@
+$.fn.preventDoubleClick = (seconds = 3) ->
+  $(this).click =>
+    d = new Date()
+    now = d.getTime()
+    last_click = if typeof $(this).attr('data-last_clicked') == "undefined" then (now - seconds*1000 - 2) else parseInt($(this).attr('data-last_clicked'))
+
+    if (now - seconds*1000) < last_click
+      return false
+    else
+      $(this).attr('data-last_clicked', now )
